@@ -1,5 +1,6 @@
 ﻿using Prism;
 using Prism.Ioc;
+using Soccer.Common.Helpers;
 using Soccer.Common.Service;
 using Soccer.Common.Services;
 using Soccer.Prism.ViewModels;
@@ -31,6 +32,7 @@ namespace Soccer.Prism
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<IApiService, ApiService>();
+            containerRegistry.Register<ITransformHelper, TransformHelper>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<TournamentsPage, TournamentsPageViewModel>();
             containerRegistry.RegisterForNavigation<GroupsPage, GroupsPageViewModel>();
