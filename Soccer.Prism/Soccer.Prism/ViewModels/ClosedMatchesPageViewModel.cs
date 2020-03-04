@@ -1,6 +1,8 @@
-﻿using Prism.Commands;
+﻿using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Soccer.Common.Helpers;
 using Soccer.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -15,9 +17,12 @@ namespace Soccer.Prism.ViewModels
 
         public ClosedMatchesPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            Title = "Close Matches";
+            Title = "Close";
             //_navigationService = navigationService;
+            LoadMatches();
         }
+
+       
 
         public List<MatchResponse> Matches
         {
@@ -26,13 +31,11 @@ namespace Soccer.Prism.ViewModels
         }
 
 
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        private void LoadMatches()
         {
-            base.OnNavigatedTo(parameters);
+            _tournament = JsonConvert.DeserializeObject<TournamentResponse>(Setting.Tournament);
 
-            _tournament = parameters.GetValue<TournamentResponse>("tournament");
-            Title = _tournament.Name;
+            //Title = _tournament.Name;
             List<MatchResponse> matches = new List<MatchResponse>();
             foreach (GroupResponse group in _tournament.Groups)
             {
@@ -41,5 +44,7 @@ namespace Soccer.Prism.ViewModels
 
             Matches = matches.Where(m => m.IsClosed).OrderBy(m => m.Date).ToList();
         }
+
+       
     }
 }
