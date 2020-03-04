@@ -13,7 +13,7 @@ namespace Soccer.Prism.ViewModels
 
         public MatchesPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            Title = "Matches";
+            Title = "Open";
             //_navigationService = navigationService;
         }
 
@@ -30,7 +30,7 @@ namespace Soccer.Prism.ViewModels
             base.OnNavigatedTo(parameters);
 
             _tournament = parameters.GetValue<TournamentResponse>("tournament");
-            Title = _tournament.Name;
+           
             List<MatchResponse> matches = new List<MatchResponse>();
             foreach (GroupResponse group in _tournament.Groups)
             {
