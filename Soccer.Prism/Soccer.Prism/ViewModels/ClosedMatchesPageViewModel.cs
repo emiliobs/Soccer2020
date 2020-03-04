@@ -1,19 +1,21 @@
-﻿using Prism.Navigation;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Navigation;
 using Soccer.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Soccer.Prism.ViewModels
 {
-    public class MatchesPageViewModel : ViewModelBase
+    public class ClosedMatchesPageViewModel : ViewModelBase
     {
-        //private readonly INavigationService _navigationService;
         private TournamentResponse _tournament;
         private List<MatchResponse> _matches;
 
-        public MatchesPageViewModel(INavigationService navigationService) : base(navigationService)
+        public ClosedMatchesPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            Title = "Matches";
+            Title = "Close Matches";
             //_navigationService = navigationService;
         }
 
@@ -37,7 +39,7 @@ namespace Soccer.Prism.ViewModels
                 matches.AddRange(group.Matches);
             }
 
-            Matches = matches.Where(m => !m.IsClosed).OrderBy(m => m.Date).ToList();
+            Matches = matches.Where(m => m.IsClosed).OrderBy(m => m.Date).ToList();
         }
     }
 }
